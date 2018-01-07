@@ -16,6 +16,10 @@ class App extends Component {
         <p className="App-intro">
           {this.props.information}
           <br/>
+          <button onClick={this.props.aumentar}>Aumentar</button>
+          <br/>
+          <button onClick={this.props.disminuir}>Disminuir</button>
+          <br/>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
       </div>
@@ -35,13 +39,34 @@ const mapStateToProps = (state) => {
   }
 }
 
-//
-const mapDispatchToProps = {
-  aumentar: () => {
-    return { type: "AUM" }
-  },
-  disminuir: () => {
-    return { type: "DIS" }
+//Es un objeto, que asume que las funciones internas son ACTION CREATOR
+//y que al ingresarlas a nuestro Component las engloba en DISPATCH
+//para que de esta forma puedan ser llamadas como DISPATCH
+//const mapDispatchToProps = {
+//  aumentar: () => {
+//    return { type: "AUM" }
+//  },
+//  disminuir: () => {
+//    return { type: "DIS" }
+//  }
+//}
+
+//De esta manera se pueden ejectuar acciones async
+//Puede ser tambien una funcion que tiene disponible
+//el dispatch y por lo tanto podemos ejecutarlo dentro
+// de nuestras funciones
+const mapDispatchToProps = (dispatch) => {
+  return {
+    aumentar: () => {
+      dispatch({
+        type: "AUM"
+      })
+    },
+    disminuir: () => {
+      dispatch({
+        type: "DIS"
+      })
+    }
   }
 }
 

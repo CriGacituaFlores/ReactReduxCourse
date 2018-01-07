@@ -13,6 +13,15 @@ import { Provider } from 'react-redux';
 const state = { cantidad: 2 };
 
 const reducer = (state, action) => {
+    var nuevoEstado = Object.assign({}, state)
+    if (action.type === "AUM") {
+        console.log("dentro del reducer aumentar");
+        nuevoEstado.cantidad = state.cantidad + 1;
+        return nuevoEstado;
+    } else if (action.type === "DIS") {
+        nuevoEstado.cantidad = state.cantidad - 1;
+        return nuevoEstado;
+    }
     return state;
 }
 
