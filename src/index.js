@@ -5,10 +5,13 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 //redux
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 //react-redux
 //Provider: engloba el componente principal para que los demas componentes hijos tengan acceso al store
 import { Provider } from 'react-redux';
+
+//Es una funcion que engloba una expresion y hace que se ejecucion se retrase
+import ReduxThunk from 'redux-thunk'
 
 //const state = { cantidad: 2 };
 
@@ -54,7 +57,7 @@ const reducer = combineReducers({
 })
 
 //crear store
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(ReduxThunk));
 
 ReactDOM.render(
     //1. Implementar el PROVIDER

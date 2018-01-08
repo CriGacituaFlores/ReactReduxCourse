@@ -78,14 +78,18 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     aumentar: () => {
-      dispatch({
-        type: "AUM"
+      dispatch((dispatch) => {
+        setTimeout(() => {
+          return dispatch({
+            type: "AUM"
+          })
+        }, 3000);
       })
     },
     disminuir: () => {
-      dispatch({
-        type: "DIS"
-      })
+      setTimeout(() => {
+        dispatch({type: "DIS"})
+      }, 5000);
     },
     agregar: (tarea, id) => {
       dispatch({
