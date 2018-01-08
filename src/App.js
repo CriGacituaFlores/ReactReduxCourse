@@ -6,22 +6,40 @@ import './App.css';
 import { connect } from 'react-redux';
 
 class App extends Component {
+    constructor (props) {
+      super(props);
+      this.agregarTarea = this.agregarTarea.bind(this);
+    }
+
+    agregarTarea = (event) => {
+      if(event.which === 13) {
+        console.log(event.target.value)
+        this.props.agregar(event.target.value, this.props.id)
+      }
+    }
   render() {
+    const elementosTareas = this.props.tareas.map((tarea) => {
+      return <h2 key={tarea.id}>{tarea.tarea}</h2>
+    });
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
+        <div className="App-intro">
           {this.props.information}
           <br/>
           <button onClick={this.props.aumentar}>Aumentar</button>
           <br/>
           <button onClick={this.props.disminuir}>Disminuir</button>
           <br/>
+          <input onKeyPress={this.agregarTarea}/>
+          <br/>
+          {elementosTareas}
+          <br/>
           To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        </div>
       </div>
     );
   }
@@ -35,7 +53,9 @@ class App extends Component {
 const mapStateToProps = (state) => {
   //retorna un objeto javascript
   return {
-    information: state.cantidad
+    information: state.numero,
+    tareas: state.tareas,
+    id: state.id
   }
 }
 
@@ -65,6 +85,13 @@ const mapDispatchToProps = (dispatch) => {
     disminuir: () => {
       dispatch({
         type: "DIS"
+      })
+    },
+    agregar: (tarea, id) => {
+      dispatch({
+        type: "ADD",
+        tarea,
+        id
       })
     }
   }
